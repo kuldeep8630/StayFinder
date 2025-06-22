@@ -17,10 +17,7 @@ app.use('/uploads', express.static('uploads'));
 
 // Use environment variable for MongoDB connection
 const mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/stayfinder';
-mongoose.connect(mongoURI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
+mongoose.connect(mongoURI)
   .then(() => console.log('Connected to MongoDB'))
   .catch(err => console.error('MongoDB connection error:', err));
 
