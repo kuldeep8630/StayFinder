@@ -1,0 +1,15 @@
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif; /* Matches index.css */
+  background: linear-gradient(135deg, #f0f4f8 0%, #d9e4f5 100%);
+}
+
+a {
+  text-decoration: none;
+  color: #4b5e97;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: #2a4066;
+}

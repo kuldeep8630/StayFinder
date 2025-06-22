@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Dark brown background with subtle gradient */
+body {
+  background: linear-gradient(135deg, #124E66 0%, #bcb7b0 100%);
+  margin: 0;
+  font-family: 'Poppins', sans-serif; /* Modern font, add via Google Fonts if needed */
+}
+
+/* Ensure no conflicting styles for react-slick */
+.slick-slide img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Fix any height issues with slick-track */
+.slick-track {
+  display: flex;
+  align-items: center;
+}
+
