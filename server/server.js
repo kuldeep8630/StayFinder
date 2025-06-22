@@ -10,7 +10,7 @@ const app = express();
 
 // nnn Update CORS to allow the deployed frontend URL (update after frontend deployment)
 app.use(cors({
-  origin: 'http://localhost:5173', // Replace with your Vercel URL (e.g., https://stayfinder.vercel.app) after deployment
+  origin: 'https://stayfinder-frontend-bwxhc1xyg-kuldeep-pals-projects-21041dff.vercel.app',
 }));
 app.use(express.json());
 app.use('/uploads', express.static('uploads'));
