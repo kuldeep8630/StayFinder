@@ -8,7 +8,7 @@ require('dotenv').config();
 
 const app = express();
 
-// Update CORS to allow the deployed frontend URL (update after frontend deployment)
+// nnn Update CORS to allow the deployed frontend URL (update after frontend deployment)
 app.use(cors({
   origin: 'http://localhost:5173', // Replace with your Vercel URL (e.g., https://stayfinder.vercel.app) after deployment
 }));
