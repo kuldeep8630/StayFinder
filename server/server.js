@@ -8,7 +8,7 @@ require('dotenv').config();
 
 const app = express();
 
-// Update CORS to allow the deployed frontend URL (update after frontend deployment)
+// Update CORS to allow the deployed frontend URL
 app.use(cors({
   origin: 'https://stayfinder-frontend-bwxhc1xyg-kuldeep-pals-projects-21041dff.vercel.app',
 }));
@@ -44,7 +44,7 @@ mongoose.connection.once('open', async () => {
       listing = new Listing({
         title: 'Test Listing',
         description: 'A test property',
-        location: { address: 'Test City' }, // Adjusted for your model
+        location: 'Test City', // Fixed to string as per schema
         price: 100,
         host: user._id,
         images: ['/uploads/sample.jpg'],
