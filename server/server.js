@@ -10,7 +10,7 @@ const app = express();
 
 // new Update CORS to allow the deployed frontend URL
 app.use(cors({
-  origin: 'https://stayfinder-frontend-qsgd8dfkz-kuldeep-pals-projects-21041dff.vercel.app',
+  origin: 'https://stayfinder-frontend-fltx7n63s-kuldeep-pals-projects-21041dff.vercel.app',
 }));
 app.use(express.json());
 app.use('/uploads', express.static('uploads'));
