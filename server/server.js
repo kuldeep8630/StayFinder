@@ -8,13 +8,14 @@ require('dotenv').config();
 
 const app = express();
 
-// Ensure CORS origin matches the deployed frontend URL
+// Update CORS to allow the deployed frontend URL
 app.use(cors({
-  origin: 'https://stayfinder-frontend-bwxhc1xyg-kuldeep-pals-projects-21041dff.vercel.app',
+  origin: 'https://stayfinder-frontend-bwxhc1xyg-kuldeep-pals-projects-21041dff.vercel.app/',
 }));
 app.use(express.json());
 app.use('/uploads', express.static('uploads'));
 
+// new use environment variable for MongoDB connection
 const mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/stayfinder';
 mongoose.connect(mongoURI)
   .then(() => console.log('Connected to MongoDB'))
