@@ -8,17 +8,17 @@ require('dotenv').config();
 
 const app = express();
 
-// new Update CORS to allow the deployed frontend URL
+// Ensure CORS is correctly configured
+console.log('Configuring CORS with origin:', 'https://stayfinder-frontend-fltx7n63s-kuldeep-pals-projects-21041dff.vercel.app');
 app.use(cors({
   origin: 'https://stayfinder-frontend-fltx7n63s-kuldeep-pals-projects-21041dff.vercel.app',
 }));
 app.use(express.json());
 app.use('/uploads', express.static('uploads'));
 
-// new use environment variable for MongoDB connection
 const mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/stayfinder';
 mongoose.connect(mongoURI)
-  .then(() => console.log('Connected to MongoDB'))
+  .then(() => console.log('MongoDB connection established'))
   .catch(err => console.error('MongoDB connection error:', err));
 
 const User = require('./models/User');
@@ -27,6 +27,7 @@ const Booking = require('./models/Booking');
 const bcrypt = require('bcryptjs');
 
 mongoose.connection.once('open', async () => {
+  console.log('Starting seeding process...');
   try {
     let user = await User.findOne({ email: 'test@example.com' });
     if (!user) {
@@ -65,6 +66,7 @@ mongoose.connection.once('open', async () => {
       await booking.save();
       console.log('Seeded booking:', booking);
     }
+    console.log('Seeding process completed.');
   } catch (err) {
     console.error('Seeding error:', err.message);
   }
