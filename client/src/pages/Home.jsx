@@ -153,7 +153,7 @@ function Home() {
                 )}
                 <h3 className="text-xl font-semibold mt-2">{listing.title}</h3>
                 <p className="text-black">{listing.description}</p>
-                <p><strong>Location:</strong> {listing.location.address}</p>
+                <p><strong>Location:</strong> {listing.location}</p> {/* Fixed to listing.location */}
                 <p><strong>Price:</strong> ${listing.price}/night</p>
               </div>
             </Link>
