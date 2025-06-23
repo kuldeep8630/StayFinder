@@ -15,7 +15,7 @@ app.use(cors({
 app.use(express.json());
 app.use('/uploads', express.static('uploads'));
 
-// use environment variable for MongoDB connection
+// new use environment variable for MongoDB connection
 const mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/stayfinder';
 mongoose.connect(mongoURI)
   .then(() => console.log('Connected to MongoDB'))
