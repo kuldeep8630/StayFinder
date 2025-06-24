@@ -8,13 +8,17 @@ require('dotenv').config();
 
 const app = express();
 
-// Ensure CORS is correctly configured
 console.log('Configuring CORS with origin:', 'https://stayfinder-frontend-fltx7n63s-kuldeep-pals-projects-21041dff.vercel.app');
 app.use(cors({
   origin: 'https://stayfinder-frontend-fltx7n63s-kuldeep-pals-projects-21041dff.vercel.app',
 }));
 app.use(express.json());
 app.use('/uploads', express.static('uploads'));
+
+// Test route
+app.get('/ping', (req, res) => {
+  res.json({ status: 'Server is alive!' });
+});
 
 const mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/stayfinder';
 mongoose.connect(mongoURI)
