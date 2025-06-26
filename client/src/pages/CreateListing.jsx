@@ -36,7 +36,7 @@ function CreateListing() {
     }
 
     try {
-      console.log('Token being sent:', token); // Add this
+      console.log('Token being sent:', token);
       const formDataWithImages = new FormData();
       formDataWithImages.append('title', formData.title);
       formDataWithImages.append('description', formData.description);
@@ -46,7 +46,7 @@ function CreateListing() {
         formDataWithImages.append('images', image);
       });
 
-      const response = await axios.post('http://localhost:5000/api/listings', formDataWithImages, {
+      const response = await axios.post('https://stayfinder-v2y6.onrender.com/api/listings', formDataWithImages, {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'multipart/form-data',

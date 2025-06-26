@@ -17,8 +17,8 @@ function Profile() {
       }
 
       try {
-        console.log('Token being sent for profile:', token); // Add this
-        const response = await axios.get('http://localhost:5000/api/auth/profile', {
+        console.log('Token being sent for profile:', token);
+        const response = await axios.get('https://stayfinder-v2y6.onrender.com/api/auth/profile', {
           headers: { Authorization: `Bearer ${token}` },
         });
         setProfile(response.data);
@@ -52,7 +52,7 @@ function Profile() {
       <div className="border border-[#124E66] rounded-lg p-4 shadow hover:shadow-lg transition">
         {profile.image ? (
           <img
-            src={`http://localhost:5000${profile.image}`}
+            src={`https://stayfinder-v2y6.onrender.com${profile.image}`} // Updated URL
             alt="Profile"
             className="w-32 h-32 object-cover rounded-full mx-auto mb-4"
           />

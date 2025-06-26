@@ -17,7 +17,7 @@ export const AuthProvider = ({ children }) => {
 
       try {
         console.log('Fetching user profile with token:', token);
-        const response = await axios.get('http://localhost:5000/api/auth/profile', {
+        const response = await axios.get('https://stayfinder-v2y6.onrender.com/api/auth/profile', {
           headers: { Authorization: `Bearer ${token}` },
         });
         console.log('User profile fetched successfully:', response.data);
@@ -35,7 +35,7 @@ export const AuthProvider = ({ children }) => {
   const login = async (email, password) => {
     try {
       console.log('Attempting login with email:', email);
-      const response = await axios.post('http://localhost:5000/api/auth/login', { email, password });
+      const response = await axios.post('https://stayfinder-v2y6.onrender.com/api/auth/login', { email, password });
       const { token } = response.data;
       console.log('Login successful, setting token:', token);
       localStorage.setItem('token', token);
@@ -49,7 +49,7 @@ export const AuthProvider = ({ children }) => {
 
   const register = async (username, email, password) => {
     try {
-      await axios.post('http://localhost:5000/api/auth/register', { username, email, password });
+      await axios.post('https://stayfinder-v2y6.onrender.com/api/auth/register', { username, email, password });
       return true;
     } catch (err) {
       console.error('Registration failed:', err.response?.data?.message || err.message);

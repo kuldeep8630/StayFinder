@@ -23,7 +23,7 @@ function EditListing() {
   useEffect(() => {
     const fetchListing = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/listings/${id}`, {
+        const response = await axios.get(`https://stayfinder-v2y6.onrender.com/api/listings/${id}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         const { title, description, location, price, images } = response.data;
@@ -74,7 +74,7 @@ function EditListing() {
         formDataWithImages.append('images', image);
       });
 
-      const response = await axios.put(`http://localhost:5000/api/listings/${id}`, formDataWithImages, {
+      const response = await axios.put(`https://stayfinder-v2y6.onrender.com/api/listings/${id}`, formDataWithImages, {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'multipart/form-data',
@@ -158,7 +158,7 @@ function EditListing() {
               {existingImages.map((image, index) => (
                 <div key={index} className="relative">
                   <img
-                    src={`http://localhost:5000${image}`}
+                    src={`https://stayfinder-v2y6.onrender.com${image}`} // Updated URL
                     alt={`Existing ${index + 1}`}
                     className="w-20 h-20 object-cover rounded"
                   />
@@ -167,7 +167,7 @@ function EditListing() {
                     onClick={() => handleRemoveExistingImage(image)}
                     className="absolute top-0 right-0 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center"
                   >
-                    &times;
+                    ×
                   </button>
                 </div>
               ))}

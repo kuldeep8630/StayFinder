@@ -17,7 +17,7 @@ function MyBookings() {
 
       try {
         console.log('Fetching bookings from /api/bookings/my-bookings');
-        const response = await axios.get('http://localhost:5000/api/bookings/my-bookings', {
+        const response = await axios.get('https://stayfinder-v2y6.onrender.com/api/bookings/my-bookings', {
           headers: { Authorization: `Bearer ${token}` },
         });
         setBookings(response.data);

@@ -18,7 +18,7 @@ function MyListings() {
 
       try {
         console.log('Fetching from /api/listings/user/my-listings');
-        const response = await axios.get('http://localhost:5000/api/listings/user/my-listings', {
+        const response = await axios.get('https://stayfinder-v2y6.onrender.com/api/listings/user/my-listings', {
           headers: { Authorization: `Bearer ${token}` },
         });
         setListings(response.data);
@@ -34,7 +34,7 @@ function MyListings() {
     if (!window.confirm('Are you sure you want to delete this listing?')) return;
 
     try {
-      await axios.delete(`http://localhost:5000/api/listings/${id}`, {
+      await axios.delete(`https://stayfinder-v2y6.onrender.com/api/listings/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setListings(listings.filter(listing => listing._id !== id));
@@ -72,7 +72,7 @@ function MyListings() {
                   {listing.images.map((image, index) => (
                     <img
                       key={index}
-                      src={`http://localhost:5000${image}`}
+                      src={`https://stayfinder-v2y6.onrender.com${image}`} // Updated URL
                       alt={`${listing.title} - ${index + 1}`}
                       className="w-40 h-40 object-cover rounded"
                     />

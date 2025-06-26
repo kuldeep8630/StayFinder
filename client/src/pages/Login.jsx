@@ -1,66 +1,69 @@
-import { useState, useContext } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useEffect, useState, useContext } from 'react';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
 import { AuthContext } from '../context/AuthContext.jsx';
 
-function Login() {
-  const { login } = useContext(AuthContext);
-  const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-  });
+function MyBookings() {
+  const { token } = useContext(AuthContext);
+  const [bookings, setBookings] = useState([]);
   const [error, setError] = useState('');
-  const navigate = useNavigate();
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+  useEffect(() => {
+    const fetchBookings = async () => {
+      if (!token) {
+        setError('Please log in to view your bookings');
+        return;
+      }
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      await login(formData.email, formData.password);
-      navigate('/');
-    } catch (err) {
-      setError(err.response?.data?.message || 'Failed to login');
-    }
-  };
+      try {
+        console.log('Fetching bookings from /api/bookings/my-bookings');
+        const response = await axios.get('https://stayfinder-v2y6.onrender.com/api/bookings/my-bookings', {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setBookings(response.data);
+        setError('');
+      } catch (err) {
+        setError(err.response?.data?.message || 'Failed to fetch bookings');
+        console.error('Error fetching bookings:', err.response?.data?.message || err.message);
+      }
+    };
+    fetchBookings();
+  }, [token]);
+
+  if (!token) {
+    return (
+      <div className="p-4">
+        <p>
+          Please <Link to="/login" className="text-blue-500 hover:underline">log in</Link> to view your bookings.
+        </p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return <div className="p-4"><p className="text-red-500">{error}</p></div>;
+  }
 
   return (
-    <div className="p-4 max-w-md mx-auto">
-      <h1 className="text-3xl font-bold mb-4">Login</h1>
-      {error && <p className="text-red-500 mb-2">{error}</p>}
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div>
-          <label className="block mb-1">Email:</label>
-          <input
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-            className="border border-[#124E66] focus:border-[#124E66] focus:ring-1 focus:ring-[#124E66] focus:outline-none rounded p-2 w-full bg-[#ffffff20] text-black placeholder-[#bcb7b0]"
-          />
+    <div className="p-4">
+      <h1 className="text-3xl font-bold mb-4">My Bookings</h1>
+      {bookings.length === 0 ? (
+        <p className="text-black">You have no bookings yet.</p>
+      ) : (
+        <div className="space-y-4">
+          {bookings.map(booking => (
+            <div key={booking._id} className="border border-[#124E66] focus:border-[#124E66] focus:ring-1 focus:ring-[#124E66] focus:outline-none rounded-lg p-4 shadow">
+              <p><strong>Listing:</strong> {booking.listing.title}</p>
+              <p><strong>Location:</strong> {booking.listing.location}</p>
+              <p><strong>Check-In Date:</strong> {new Date(booking.checkInDate).toLocaleDateString()}</p>
+              <p><strong>Check-Out Date:</strong> {new Date(booking.checkOutDate).toLocaleDateString()}</p>
+              <p><strong>Total Price:</strong> ${booking.totalPrice}</p>
+            </div>
+          ))}
         </div>
-        <div>
-          <label className="block mb-1">Password:</label>
-          <input
-            type="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            required
-            className="border border-[#124E66] focus:border-[#124E66] focus:ring-1 focus:ring-[#124E66] focus:outline-none rounded p-2 w-full bg-[#ffffff20] text-black placeholder-[#bcb7b0]"
-          />
-        </div>
-        <button type="submit" className="bg-[#071b23]  text-white px-4 py-2 rounded hover:bg-[#124E66]">
-          Login
-        </button> 
-      </form>
-      <p className="mt-4">
-        Don't have an account? <Link to="/register" className="tbg-[#071b23] text-red-700 hover:underline">Register</Link>
-      </p>
+      )}
     </div>
   );
 }
 
-export default Login;
+export default MyBookings;
