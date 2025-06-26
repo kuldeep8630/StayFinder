@@ -14,7 +14,7 @@ function Home() {
 
   const fetchListings = async () => {
     try {
-      const API_URL = 'https://stayfinder-backend.onrender.com';
+      const API_URL = 'https://stayfinder-v2y6.onrender.com';
       const response = await axios.get(`${API_URL}/api/listings`, {
         params: filters,
       });
@@ -140,7 +140,7 @@ function Home() {
                     {listing.images.map((image, index) => (
                       <img
                         key={index}
-                        src={`https://stayfinder-backend.onrender.com${image}`} // Updated to live backend
+                        src={`https://stayfinder-v2y6.onrender.com${image}`} // Updated to live backend
                         alt={`${listing.title} - ${index + 1}`}
                         className="w-40 h-40 object-cover rounded"
                       />
