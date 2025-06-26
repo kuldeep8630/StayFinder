@@ -52,7 +52,7 @@ mongoose.connection.once('open', async () => {
         location: 'Test City',
         price: 100,
         host: user._id,
-        images: ['/uploads/sample.jpg'],
+        images: ['/uploads/carbook.jpg'],
       });
       await listing.save();
       console.log('Seeded listing:', listing);
