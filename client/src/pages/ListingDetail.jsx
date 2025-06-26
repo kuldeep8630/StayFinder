@@ -35,10 +35,12 @@ function ListingDetail() {
   useEffect(() => {
     const fetchListing = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/listings/${id}`);
+        const API_URL = 'https://stayfinder-v2y6.onrender.com'; // Updated for Render
+        const response = await axios.get(`${API_URL}/api/listings/${id}`);
         setListing(response.data);
       } catch (err) {
         setError(err.response?.data?.message || 'Failed to fetch listing');
+        console.error('Fetch error:', err); // Add logging for debugging
       }
     };
     fetchListing();
@@ -56,8 +58,9 @@ function ListingDetail() {
     }
 
     try {
+      const API_URL = 'https://stayfinder-v2y6.onrender.com'; // Updated for Render
       const response = await axios.post(
-        'http://localhost:5000/api/bookings',
+        `${API_URL}/api/bookings`,
         { listingId: id, ...bookingForm },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -80,13 +83,12 @@ function ListingDetail() {
     const nights = Math.ceil((checkOut - checkIn) / (1000 * 60 * 60 * 24));
     const totalPrice = nights * (listing?.price || 0);
 
-    // Simulate payment processing
     setBookingError('');
     setTimeout(() => {
       setPaymentConfirmed(true);
       setBookingSuccess(`Payment confirmed! Booking complete for $${totalPrice}. View in My Bookings.`);
       setBookingForm({ checkInDate: '', checkOutDate: '' });
-    }, 2000); // 2-second delay
+    }, 2000);
   };
 
   const handleViewBookings = () => {
@@ -103,6 +105,7 @@ function ListingDetail() {
 
   return (
     <div className="p-4 max-w-2xl mx-auto">
+      <button onClick={() => navigate(-1)} className="text-blue-500 mb-4">← Back</button>
       <h1 className="text-3xl font-bold mb-4">{listing.title}</h1>
       {listing.images && listing.images.length > 0 ? (
         <div className="mb-4">
@@ -110,7 +113,7 @@ function ListingDetail() {
             {listing.images.map((image, index) => (
               <div key={index}>
                 <img
-                  src={`http://localhost:5000${image}`}
+                  src={`https://stayfinder-v2y6.onrender.com${image}`} // Updated for Render
                   alt={`${listing.title} - ${index + 1}`}
                   className="w-full h-96 object-cover rounded"
                 />
@@ -124,7 +127,7 @@ function ListingDetail() {
         </div>
       )}
       <p className="text-black mb-2">{listing.description}</p>
-      <p className="mb-2"><strong>Location:</strong> {listing.location.address}</p>
+      <p className="mb-2"><strong>Location:</strong> {listing.location.address || listing.location}</p> {/* Handle possible structure */}
       <p className="mb-4"><strong>Price:</strong> ${listing.price}/night</p>
 
       <h2 className="text-2xl font-semibold mb-2">Book This Stay</h2>
@@ -142,7 +145,6 @@ function ListingDetail() {
               min={today}
               required
               className="border border-[#124E66] focus:border-[#124E66] focus:ring-1 focus:ring-[#124E66] focus:outline-none rounded p-2 w-full bg-[#ffffff20] text-[#bcb7b0]"
-
             />
           </div>
           <div>
@@ -157,7 +159,7 @@ function ListingDetail() {
               className="border border-[#124E66] focus:border-[#124E66] focus:ring-1 focus:ring-[#124E66] focus:outline-none rounded p-2 w-full bg-[#ffffff20] text-[#bcb7b0]"
             />
           </div>
-          <button type="submit" className="bg-[#071b23]  text-white px-4 py-2 rounded hover:bg-[#124E66]">
+          <button type="submit" className="bg-[#071b23] text-white px-4 py-2 rounded hover:bg-[#124E66]">
             Book Now
           </button>
         </form>
