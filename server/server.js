@@ -15,7 +15,7 @@ app.use(cors({
 app.use(express.json());
 app.use('/uploads', express.static('uploads'));
 
-// Test route
+// new Test route
 app.get('/ping', (req, res) => {
   res.json({ status: 'Server is alive!' });
 });
