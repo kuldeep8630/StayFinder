@@ -108,9 +108,9 @@ require('dotenv').config();
 
 const app = express();
 
-console.log('Configuring CORS with origin:', 'https://stayfinder-frontend-7ygkr5zk7-kuldeep-pals-projects-21041dff.vercel.app');
+console.log('Configuring CORS with origin:', 'https://stayfinder-frontend-6m5tnlzf7-kuldeep-pals-projects-21041dff.vercel.app');
 app.use(cors({
-  origin: 'https://stayfinder-frontend-7ygkr5zk7-kuldeep-pals-projects-21041dff.vercel.app',
+  origin: 'https://stayfinder-frontend-6m5tnlzf7-kuldeep-pals-projects-21041dff.vercel.app',
 }));
 app.use(express.json()); // Ensure this is active
 app.use('/uploads', express.static('uploads'));
