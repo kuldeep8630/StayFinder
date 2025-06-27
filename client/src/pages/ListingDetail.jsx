@@ -35,12 +35,10 @@ function ListingDetail() {
   useEffect(() => {
     const fetchListing = async () => {
       try {
-        const API_URL = 'https://stayfinder-v2y6.onrender.com'; // Updated for Render
-        const response = await axios.get(`${API_URL}/api/listings/${id}`);
+        const response = await axios.get(`https://stayfinder-v2y6.onrender.com/api/listings/${id}`);
         setListing(response.data);
       } catch (err) {
         setError(err.response?.data?.message || 'Failed to fetch listing');
-        console.error('Fetch error:', err); // Add logging for debugging
       }
     };
     fetchListing();
@@ -58,9 +56,8 @@ function ListingDetail() {
     }
 
     try {
-      const API_URL = 'https://stayfinder-v2y6.onrender.com'; // Updated for Render
       const response = await axios.post(
-        `${API_URL}/api/bookings`,
+        `https://stayfinder-v2y6.onrender.com/api/bookings`,
         { listingId: id, ...bookingForm },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -113,7 +110,7 @@ function ListingDetail() {
             {listing.images.map((image, index) => (
               <div key={index}>
                 <img
-                  src={`https://stayfinder-v2y6.onrender.com${image}`} // Updated for Render
+                  src={`https://stayfinder-v2y6.onrender.com${image}`}
                   alt={`${listing.title} - ${index + 1}`}
                   className="w-full h-96 object-cover rounded"
                 />
@@ -127,7 +124,7 @@ function ListingDetail() {
         </div>
       )}
       <p className="text-black mb-2">{listing.description}</p>
-      <p className="mb-2"><strong>Location:</strong> {listing.location.address || listing.location}</p> {/* Handle possible structure */}
+      <p className="mb-2"><strong>Location:</strong> {listing.location.address || listing.location}</p>
       <p className="mb-4"><strong>Price:</strong> ${listing.price}/night</p>
 
       <h2 className="text-2xl font-semibold mb-2">Book This Stay</h2>
