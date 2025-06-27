@@ -44,7 +44,7 @@ function CreateListing() {
       images.forEach(image => {
         formDataWithImages.append('images', image);
       });
-      console.log('Submitting with formData:', Object.fromEntries(formDataWithImages));
+      console.log('Submitting with formData:', Object.fromEntries(formDataWithImages)); // Debug
       const response = await axios.post('https://stayfinder-v2y6.onrender.com/api/listings', formDataWithImages, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -59,7 +59,8 @@ function CreateListing() {
       setImagePreviews([]);
       setTimeout(() => navigate('/'), 2000);
     } catch (err) {
-      setError(err.response?.data?.message || 'Failed to create listing');
+      console.error('Create Listing Error:', err.response?.data || err.message); // Detailed error logging
+      setError(err.response?.data?.message || 'Failed to create listing. Check backend logs or try again.');
       setSuccess('');
     }
   };
@@ -149,7 +150,7 @@ function CreateListing() {
             </div>
           )}
         </div>
-        <button type="submit" className="bg-[#071b23]  text-white px-4 py-2 rounded hover:bg-[#124E66]">
+        <button type="submit" className="bg-[#071b23] text-white px-4 py-2 rounded hover:bg-[#124E66]">
           Create Listing
         </button>
       </form>
