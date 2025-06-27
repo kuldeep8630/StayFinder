@@ -112,7 +112,7 @@ console.log('Configuring CORS with origin:', 'https://stayfinder-frontend-7ygkr5
 app.use(cors({
   origin: 'https://stayfinder-frontend-7ygkr5zk7-kuldeep-pals-projects-21041dff.vercel.app',
 }));
-app.use(express.json());
+app.use(express.json()); // Ensure this is active
 app.use('/uploads', express.static('uploads'));
 
 app.get('/ping', (req, res) => {
