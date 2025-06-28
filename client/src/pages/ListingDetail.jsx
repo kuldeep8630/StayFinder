@@ -113,6 +113,7 @@ function ListingDetail() {
                   src={`https://stayfinder-v2y6.onrender.com${image}`}
                   alt={`${listing.title} - ${index + 1}`}
                   className="w-full h-96 object-cover rounded"
+                  onError={(e) => { e.target.src = '/placeholder.jpg'; console.log('Image failed:', image); }}
                 />
               </div>
             ))}
